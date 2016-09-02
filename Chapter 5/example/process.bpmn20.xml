@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="process" isExecutable="true">
+    <startEvent id="start" name="Apply for leave">
+      <extensionElements>
+        <activiti:formProperty id="name" name="name" type="string"></activiti:formProperty>
+        <activiti:formProperty id="nodays" name="Total Days" type="long"></activiti:formProperty>
+        <activiti:formProperty id="emailid" name="Email id" type="string"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="hrApproval" name="H.R.Approval" activiti:assignee="kermit">
+      <documentation>Leave requested by ${name}</documentation>
+      <extensionElements>
+        <activiti:formProperty id="accept" name="Do you Approved ?" type="boolean"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-6993F3A0-8898-4776-A71A-024300A11DBA" sourceRef="start" targetRef="hrApproval"></sequenceFlow>
+    <exclusiveGateway id="sid-790E9ECF-B12B-4BFC-B1BA-9332F48DC346"></exclusiveGateway>
+    <sequenceFlow id="sid-66FCA025-2413-469A-8FD3-61AECE3C13BA" sourceRef="hrApproval" targetRef="sid-790E9ECF-B12B-4BFC-B1BA-9332F48DC346"></sequenceFlow>
+    <serviceTask id="email" name="Approve mail" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${emailid}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Approve leave</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:string>Your leave has been approved.</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="sid-AEED2815-DCEC-4EDC-83C7-9ABCF57EA2B8"></endEvent>
+    <sequenceFlow id="aprov" sourceRef="sid-790E9ECF-B12B-4BFC-B1BA-9332F48DC346" targetRef="email">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accept=='true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-3342C68C-A334-4743-B0CF-E94F2AD1C37E" sourceRef="email" targetRef="sid-AEED2815-DCEC-4EDC-83C7-9ABCF57EA2B8"></sequenceFlow>
+    <sequenceFlow id="sid-6E2C6C1D-0493-4A09-8521-A6616823BCF6" sourceRef="sid-790E9ECF-B12B-4BFC-B1BA-9332F48DC346" targetRef="sid-AEED2815-DCEC-4EDC-83C7-9ABCF57EA2B8"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+    <bpmndi:BPMNPlane bpmnElement="process" id="BPMNPlane_process">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="60.0" y="126.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="hrApproval" id="BPMNShape_hrApproval">
+        <omgdc:Bounds height="80.0" width="100.0" x="135.0" y="101.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-790E9ECF-B12B-4BFC-B1BA-9332F48DC346" id="BPMNShape_sid-790E9ECF-B12B-4BFC-B1BA-9332F48DC346">
+        <omgdc:Bounds height="40.0" width="40.0" x="270.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="email" id="BPMNShape_email">
+        <omgdc:Bounds height="80.0" width="100.0" x="375.0" y="45.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-AEED2815-DCEC-4EDC-83C7-9ABCF57EA2B8" id="BPMNShape_sid-AEED2815-DCEC-4EDC-83C7-9ABCF57EA2B8">
+        <omgdc:Bounds height="28.0" width="28.0" x="600.0" y="126.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="aprov" id="BPMNEdge_aprov">
+        <omgdi:waypoint x="287.1014492753623" y="122.89855072463769"></omgdi:waypoint>
+        <omgdi:waypoint x="280.0" y="81.0"></omgdi:waypoint>
+        <omgdi:waypoint x="375.0" y="83.62068965517241"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6993F3A0-8898-4776-A71A-024300A11DBA" id="BPMNEdge_sid-6993F3A0-8898-4776-A71A-024300A11DBA">
+        <omgdi:waypoint x="90.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="135.0" y="141.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6E2C6C1D-0493-4A09-8521-A6616823BCF6" id="BPMNEdge_sid-6E2C6C1D-0493-4A09-8521-A6616823BCF6">
+        <omgdi:waypoint x="310.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="454.0" y="242.0"></omgdi:waypoint>
+        <omgdi:waypoint x="602.1948192271975" y="147.52580274266163"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3342C68C-A334-4743-B0CF-E94F2AD1C37E" id="BPMNEdge_sid-3342C68C-A334-4743-B0CF-E94F2AD1C37E">
+        <omgdi:waypoint x="475.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="600.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-66FCA025-2413-469A-8FD3-61AECE3C13BA" id="BPMNEdge_sid-66FCA025-2413-469A-8FD3-61AECE3C13BA">
+        <omgdi:waypoint x="235.0" y="140.52380952380952"></omgdi:waypoint>
+        <omgdi:waypoint x="270.188679245283" y="140.18867924528303"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

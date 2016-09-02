@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.bpmnwithactiviti.org/leaverequest">
+  <process id="leaverequest_withespertest" name="Process to handle a  leave request" isExecutable="true">
+    <extensionElements>
+      <activiti:executionListener event="start" class="org.activiti.test.ProcessStartExecutionListener"></activiti:executionListener>
+      <activiti:executionListener event="end" class="org.activiti.test.ProcessEndExecutionListener"></activiti:executionListener>
+    </extensionElements>
+    <startEvent id="theStart"></startEvent>
+    <sequenceFlow id="sequenceFlow-5fdb2bb1-37e7-4b8d-b834-b3e4df78dbc9" sourceRef="theStart" targetRef="evaluateLeaveRequest"></sequenceFlow>
+    <userTask id="evaluateLeaveRequest" name="Evaluate Leave request" activiti:assignee="fozzie"></userTask>
+    <sequenceFlow id="sequenceFlow-07f27430-3271-4da3-9a90-45984e3616f9" sourceRef="evaluateLeaveRequest" targetRef="theEnd"></sequenceFlow>
+    <endEvent id="theEnd"></endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_leaverequest_withespertest">
+    <bpmndi:BPMNPlane bpmnElement="leaverequest_withespertest" id="BPMNPlane_leaverequest_withespertest">
+      <bpmndi:BPMNShape bpmnElement="theEnd" id="BPMNShape_theEnd">
+        <omgdc:Bounds height="35.0" width="35.0" x="230.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="theStart" id="BPMNShape_theStart">
+        <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="evaluateLeaveRequest" id="BPMNShape_evaluateLeaveRequest">
+        <omgdc:Bounds height="60.0" width="100.0" x="80.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-5fdb2bb1-37e7-4b8d-b834-b3e4df78dbc9" id="BPMNEdge_sequenceFlow-5fdb2bb1-37e7-4b8d-b834-b3e4df78dbc9">
+        <omgdi:waypoint x="35.0" y="32.0"></omgdi:waypoint>
+        <omgdi:waypoint x="42.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="42.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-07f27430-3271-4da3-9a90-45984e3616f9" id="BPMNEdge_sequenceFlow-07f27430-3271-4da3-9a90-45984e3616f9">
+        <omgdi:waypoint x="180.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="32.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

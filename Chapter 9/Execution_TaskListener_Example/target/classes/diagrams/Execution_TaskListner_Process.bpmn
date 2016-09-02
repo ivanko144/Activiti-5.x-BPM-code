@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="Listener_checkCredit" name="Credit Check Varification Process">
+    <extensionElements>
+      <activiti:executionListener event="start" class="com.activiti.listner.MyExecuationListener"></activiti:executionListener>
+    </extensionElements>
+    <startEvent id="theStart" name="Start Credit Check Process">
+      <extensionElements>
+        <activiti:formProperty id="name" name="User Name" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="amount" name="Credit Amount" type="long" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <scriptTask id="checkCreditScript" name="Check The Credit " scriptFormat="groovy">
+      <script><![CDATA[out:println "checking credit for "+name
+approved = false;
+if(amount >=approved_amount_limit)
+{
+approved=true;
+}
+
+
+]]></script>
+    </scriptTask>
+    <exclusiveGateway id="gateway" name="Credit Check Gateway"></exclusiveGateway>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="usertask" name="Inform User">
+      <documentation>Your Credit is Not Approved</documentation>
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.activiti.listner.MyTaskListener"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" name="" sourceRef="theStart" targetRef="checkCreditScript"></sequenceFlow>
+    <sequenceFlow id="flow2" name="" sourceRef="checkCreditScript" targetRef="gateway"></sequenceFlow>
+    <sequenceFlow id="flow3" name="Approved" sourceRef="gateway" targetRef="endevent1">
+      <extensionElements>
+        <activiti:executionListener event="take" class="com.activiti.listner.MyExecution_Transition_Listener"></activiti:executionListener>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved==true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow4" name="Not Approved" sourceRef="gateway" targetRef="usertask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved==false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow5" name="" sourceRef="usertask" targetRef="endevent1"></sequenceFlow>
+    <textAnnotation id="textannotation1" textFormat="text/plain">
+      <text><![CDATA[Execution Listener Is called at Process Start Event]]></text>
+    </textAnnotation>
+    <textAnnotation id="textannotation2" textFormat="text/plain">
+      <text><![CDATA[TaskListener is Called at Process User Task Create Event]]></text>
+    </textAnnotation>
+    <association id="association1" sourceRef="theStart" targetRef="textannotation1" associationDirection="None"></association>
+    <association id="association2" sourceRef="usertask" targetRef="textannotation2" associationDirection="None"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Listener_checkCredit">
+    <bpmndi:BPMNPlane bpmnElement="Listener_checkCredit" id="BPMNPlane_Listener_checkCredit">
+      <bpmndi:BPMNShape bpmnElement="theStart" id="BPMNShape_theStart">
+        <omgdc:Bounds height="35" width="35" x="10" y="160"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkCreditScript" id="BPMNShape_checkCreditScript">
+        <omgdc:Bounds height="55" width="105" x="140" y="150"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="gateway" id="BPMNShape_gateway">
+        <omgdc:Bounds height="40" width="40" x="300" y="157"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35" width="35" x="480" y="160"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask" id="BPMNShape_usertask">
+        <omgdc:Bounds height="55" width="105" x="370" y="47"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="45" y="177"></omgdi:waypoint>
+        <omgdi:waypoint x="140" y="177"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="245" y="177"></omgdi:waypoint>
+        <omgdi:waypoint x="300" y="177"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="340" y="177"></omgdi:waypoint>
+        <omgdi:waypoint x="480" y="177"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="10" y="0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="320" y="157"></omgdi:waypoint>
+        <omgdi:waypoint x="319" y="88"></omgdi:waypoint>
+        <omgdi:waypoint x="370" y="74"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14" width="100" x="11" y="15"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="475" y="74"></omgdi:waypoint>
+        <omgdi:waypoint x="497" y="87"></omgdi:waypoint>
+        <omgdi:waypoint x="497" y="160"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50" width="141" x="70" y="62"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50" width="151" x="550" y="40"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

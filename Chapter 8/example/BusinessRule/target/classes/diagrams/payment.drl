@@ -1,0 +1,5 @@
+rule "paymentType"
+when 
+	${paymentMode}=="creditCard"
+	then
+	System.out.println("Credit Card Payment");

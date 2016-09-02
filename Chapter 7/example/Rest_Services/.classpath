@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
+	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Activiti Designer Extensions"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/activiti-engine-5.13.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/json-20090211.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/jul-to-slf4j-1.7.5.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/org.restlet.ext.json.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/org.restlet.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="/home/irshad/Documents/Company/BookWritten/Activiti-Packt-Book/Chapters/Book Activiti Begginers Guide/Chapter-7/slf4j-log4j12-1.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

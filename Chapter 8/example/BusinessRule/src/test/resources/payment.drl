@@ -1,0 +1,10 @@
+package org.activiti.book;
+
+import com.book.activiti.LaptopOrder;
+
+rule "paymentType"
+when
+	lapOrder : LaptopOrder(paymentMode == "creditCard")
+then
+	lapOrder.setAmtToBePaid(lapOrder.getLaptopAmount()-(lapOrder.getLaptopAmount()*5/100));
+end
